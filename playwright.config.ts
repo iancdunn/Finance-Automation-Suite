@@ -23,7 +23,7 @@ export default defineConfig({
     },
   ],
 
-  webServer: process.env.BASEURL ? undefined : {
+  webServer: process.env.BASE_URL ? undefined : {
     command: 'dotnet run',
     cwd: './Visionsofme',
     url: 'http://localhost:5153',
