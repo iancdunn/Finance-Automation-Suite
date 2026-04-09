@@ -1,4 +1,4 @@
-name: Fintech Automation Suite
+name: Finance Automation Suite
 on:
   schedule:
     - cron: '0 12 * * *'
