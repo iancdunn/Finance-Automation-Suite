@@ -11,7 +11,7 @@ This repository contains a professional-grade, high-concurrency end-to-end autom
 * **Multi-Tenant Worker Isolation**: Implements a custom worker-scoped architecture that maps each Playwright worker to a unique test account (`demo1`–`demo4`). This eliminates race conditions during parallel execution.
 * **On-Demand Authentication**: Features a "lazy-loading" authentication strategy where workers generate and reuse session storage states (`.json`) only when needed.
 * **EF Core State Management**: Utilizes **Entity Framework Core 10** to manage database state. The suite leverages a dedicated reset utility to clear PostgreSQL records in milliseconds, ensuring a "Clean Slate" for every test.
-* **Containerized Orchestration**: Fully Dockerized environment using **Docker Compose** to manage the .NET application, a PostgreSQL 15 database, and the Playwright test runner in a unified virtual network.
+* **Containerized Orchestration**: Fully Dockerized environment using **Docker Compose** to manage the .NET application, a PostgreSQL 18 database, and the Playwright test runner in a unified virtual network.
 * **Robust UI Formatting**: Features custom balance rendering logic that handles negative values using standard mathematical notation (`-50.00`) while maintaining professional currency formatting for transaction history.
 
 ---
