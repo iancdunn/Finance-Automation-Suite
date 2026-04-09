@@ -18,9 +18,9 @@ test('Users can add deposits', async({homePage})=>{
 test('Users can deposit large amounts', async({homePage})=>{
     await homePage.addTransaction('Deposit', 'Needs', '999999999.99');
 
-    await expect(homePage.needsBal).toHaveText('$500000000.00');
-    await expect(homePage.savingsBal).toHaveText('$300000000.00');
-    await expect(homePage.wantsBal).toHaveText('$199999999.99');
+    await expect(homePage.needsBal).toHaveText('$500,000,000.00');
+    await expect(homePage.savingsBal).toHaveText('$300,000,000.00');
+    await expect(homePage.wantsBal).toHaveText('$199,999,999.99');
     await expect(homePage.recentTx.first()).toContainText('$999,999,999.99');
 });
 
@@ -44,7 +44,7 @@ test('Users can withdraw large amounts', async({homePage})=>{
 
     await expect(homePage.needsBal).toHaveText('$0.00');
     await expect(homePage.savingsBal).toHaveText('$0.00');
-    await expect(homePage.wantsBal).toHaveText('$-999999999.99');
+    await expect(homePage.wantsBal).toHaveText('$-999,999,999.99');
     await expect(homePage.recentTx.first()).toContainText('$999,999,999.99');
 });
 

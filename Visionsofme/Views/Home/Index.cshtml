@@ -13,19 +13,19 @@
                 <p class="flex justify-between items-center">
                     <span class="font-semibold">Needs:</span>
                     <span id="needs-bal" class="@(user!.NeedsBal < 0.0 ? "text-red-500" : "")"
-                        >$@user.NeedsBal.ToString("F2")</span>
+                        >$@user.NeedsBal.ToString("#,##0.00")</span>
                     <span id="needs-pct">(@user.NeedsPct%)</span>
                 </p>
                 <p class="flex justify-between items-center">
                     <span class="font-semibold">Savings:</span>
                     <span id="savings-bal" class="@(user!.SavingsBal < 0.0 ? "text-red-500" : "")"
-                        >$@user.SavingsBal.ToString("F2")</span>
+                        >$@user.SavingsBal.ToString("#,##0.00")</span>
                     <span id="savings-pct">(@user.SavingsPct%)</span>
                 </p>
                 <p class="flex justify-between items-center">
                     <span class="font-semibold">Wants:</span>
                     <span id="wants-bal" class="@(user!.WantsBal < 0.0 ? "text-red-500" : "")"
-                        >$@user.WantsBal.ToString("F2")</span>
+                        >$@user.WantsBal.ToString("#,##0.00")</span>
                     <span id="wants-pct">(@user.WantsPct%)</span>
                 </p>
             </div>
