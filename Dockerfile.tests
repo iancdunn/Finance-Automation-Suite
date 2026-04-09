@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/playwright:v1.59.0-jammy
+
+WORKDIR /src
+
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . .
+
+ENTRYPOINT ["npx", "playwright", "test"]

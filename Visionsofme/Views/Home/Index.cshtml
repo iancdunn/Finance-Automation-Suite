@@ -1,0 +1,169 @@
+@using Visionsofme.Models
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Dashboard";
+    var user = ViewBag.User as User;
+    var transactions = ViewBag.Transactions as IEnumerable<Transaction>;
+}
+<div class="grid grid-cols 1 md:grid-cols-3 gap-8">
+    <div class="md:col-span-1 space-y-6">
+        <div class="bg-white p-6 rounded-lg border border-gray-100">
+            <h4 class="text-xl font-bold mb-4 border-b pb-2">Current Balances</h4>
+            <div class="space-y-3">
+                <p class="flex justify-between items-center">
+                    <span class="font-semibold">Needs:</span>
+                    <span id="needs-bal" class="@(user!.NeedsBal < 0.0 ? "text-red-500" : "")"
+                        >$@user.NeedsBal.ToString("F2")</span>
+                    <span id="needs-pct">(@user.NeedsPct%)</span>
+                </p>
+                <p class="flex justify-between items-center">
+                    <span class="font-semibold">Savings:</span>
+                    <span id="savings-bal" class="@(user!.SavingsBal < 0.0 ? "text-red-500" : "")"
+                        >$@user.SavingsBal.ToString("F2")</span>
+                    <span id="savings-pct">(@user.SavingsPct%)</span>
+                </p>
+                <p class="flex justify-between items-center">
+                    <span class="font-semibold">Wants:</span>
+                    <span id="wants-bal" class="@(user!.WantsBal < 0.0 ? "text-red-500" : "")"
+                        >$@user.WantsBal.ToString("F2")</span>
+                    <span id="wants-pct">(@user.WantsPct%)</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg border border-gray-100">
+            <h4 class="text-xl font-bold mb-4 border-b pb-2">Edit Settings</h4>
+            <form method="POST" action="/update_settings">
+                <h6 class="text-sm font-semibold mb-2">BALANCES ($)</h6>
+                <div class="space-y-2 mb-4">
+                    <div class="flex rounded-md">
+                        <div>
+                            <div>
+                                <span class="inline-flex items-center px-3 rounded-l-md border border-gray-300 bg-gray-50 text-sm">
+                                    Needs</span>
+                                <input type="number" aria-label="Needs Bal" step="0.01" name="needsBal" 
+                                value="@user.NeedsBal" 
+                                class="flex-1 block w-full border border-gray-300 p-3 rounded">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="inline-flex items-center px-3 rounded-l-md border border-gray-300 bg-gray-50 text-sm">
+                                    Savings</span>
+                                <input type="number" aria-label="Savings Bal" step="0.01" name="savingsBal" 
+                                value="@user.SavingsBal"
+                                class="flex-1 block w-full border border-gray-300 p-3 rounded">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="inline-flex items-center px-3 rounded-l-md border border-gray-300 bg-gray-50 text-sm">
+                                    Wants</span>
+                                <input type="number" aria-label="Wants Bal" step="0.01" name="wantsBal" 
+                                value="@user.WantsBal"
+                                class="flex-1 block w-full border border-gray-300 p-3 rounded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="text-sm font-semibold mb-2">ALLOCATIONS (%)</h6>
+                <div class="space-y-2 mb-4">
+                    <div class="flex rounded-md">
+                        <div>
+                            <div>
+                                <span class="inline-flex items-center px-3 rounded-l-md border border-gray-300 bg-gray-50 text-sm">
+                                    Needs</span>
+                                <input type="number" aria-label="Needs Pct" step="0.01" name="needsPct" 
+                                value="@user.NeedsPct"
+                                class="flex-1 block w-full border border-gray-300 p-3 rounded">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="inline-flex items-center px-3 rounded-l-md border border-gray-300 bg-gray-50 text-sm">
+                                    Savings</span>
+                                <input type="number" aria-label="Savings Pct" step="0.01" name="savingsPct" 
+                                value="@user.SavingsPct"
+                                class="flex-1 block w-full border border-gray-300 p-3 rounded">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <span class="inline-flex items-center px-3 rounded-l-md border border-gray-300 bg-gray-50 text-sm">
+                                    Wants</span>
+                                <input type="number" aria-label="Wants Pct" step="0.01" name="wantsPct" 
+                                value="@user.WantsPct"
+                                class="flex-1 block w-full border border-gray-300 p-3 rounded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-green-600 text-white font-bold p-4">Update Settings</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="md:col-span-2 space-y-6">
+        <div class="bg-white p-6 rounded-lg border border-gray-100">
+            <h4 class="text-xl font-bold mb-4 border-b pb-2">Add Transaction</h4>
+            <form method="POST" action="/add_transaction" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                <div class="md:col-span-3">
+                    <label for="type" class="block text-xs font-semibold uppercase mb-1">Type</label>
+                    <select name="type" id="type" 
+                    class="block w-full border border-gray-300 rounded p-3 bg-white" required>
+                        <option value="Deposit">Deposit</option>
+                        <option value="Withdrawal">Withdrawal</option>
+                    </select>
+                </div>
+                <div class="md:col-span-3">
+                    <label for="category" class="block text-xs font-semibold uppercase mb-1">Category</label>
+                    <select name="category" id="category" class="block w-full border border-gray-300 rounded p-3 bg-white">
+                        <option value="Needs">Needs</option>
+                        <option value="Savings">Savings</option>
+                        <option value="Wants">Wants</option>
+                    </select>
+                </div>
+                <div class="md:col-span-4">
+                    <label for="amount" class="block text-xs font-semibold uppercase mb-1">Amount</label>
+                    <input type="number" id="amount" step="0.01" name="amount" 
+                    class="flex-1 block w-full border border-gray-300 p-3 rounded">
+                </div>
+                <div class="md:col-span-2">
+                    <button type="submit" class="w-full bg-green-600 text-white font-bold p-4 rounded">Add</button>
+                </div>
+            </form>
+
+            <p class="text-xs mt-3">Deposits auto-split by your percentages. Withdrawals deduct from the selected category.</p>
+        </div>
+
+        <h4 class="text-xl font-bold mb-2 mt-8">Recent Transactions</h4>
+        <div class="bg-white rounded-lg border border-gray 200">
+            <ul class="divide-y divide-gray-200">
+                @if(transactions?.Any() == true){
+                    foreach(var tx in transactions){
+                        <li class="p-4 flex justify-between items-center">
+                            <div class="flex items-center space-x-3">
+                                <span class="font-semibold @(tx.Type == "Deposit" ? "text-green-600" : "text-black")">
+                                    @tx.Type
+                                </span>
+                                <span class="font-medium">@tx.Amount.ToString("C")</span>
+                                <span class="p-2 text-xs font-semibold rounded-full bg-blue-100">@tx.Category</span>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-sm">@tx.Date.ToLocalTime().ToString("yyyy-MM-dd")</span>
+                                <a href="/delete_transaction/@tx.Id" 
+                                class="text-red-500 text-sm font-semibold border border-red-200 p-3 rounded">
+                                    Delete
+                                </a>
+                            </div>
+                        </li>
+                    }
+                }
+                else{
+                <li class="p-4 text-center">No transactions yet.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

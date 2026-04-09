@@ -1,0 +1,15 @@
+{
+  "cookies": [
+    {
+      "name": ".AspNetCore.Cookies",
+      "value": "CfDJ8NwBRz4nrpRDqH9yLr-CpLwrbnzCfHpCbT6ZB7knBu2ZnT1b4rH8EM8H8HKbgSStOz_wdMZkRYC_mHZCRMrEyFOBl9o3oZ_fuHcVzrSWxqavcsB2sW7JlQ0fSIms5NNj1CHUfsqgzGO34lI5-ewd5x65avw0DByrW7c13AxpI1PeA3y3BlATCjMB7yFmECThez0S3-tDXo9MQ5sJi-JRLXz23vSapq1udwqag61dOJrogPGY0aPPAQ_GGRnflID5i4TdTuA9dvq4yUlgI_CvWS2KC_87ZK6YwUr4u8kykiId",
+      "domain": "localhost",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}

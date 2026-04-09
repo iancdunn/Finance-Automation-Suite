@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:18
+    container_name: finance_db
+    environment:
+      POSTGRES_DB: visionsofme
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Dr0pdeadgorgeous.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    container_name: finance_web
+    ports:
+      - "5153:8080"
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
+      - ConnectionStrings__DefaultConnection=Host=db;Database=visionsofme;Username=postgres;Password=Dr0pdeadgorgeous.
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  tests:
+    build: 
+      context: .
+      dockerfile: Dockerfile.tests
+    container_name: finance_tests
+    environment:
+      - BASE_URL=http://web:8080
+    depends_on:
+      web:
+        condition: service_healthy
