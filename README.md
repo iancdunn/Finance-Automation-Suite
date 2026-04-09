@@ -4,7 +4,7 @@ This repository contains a professional-grade, high-concurrency end-to-end autom
 
 ---
 
-![Home UI]([media/visionsofme_ui.jpg])
+![Home UI](media/visionsofme_ui.jpg)
 
 ## Key Features
 
