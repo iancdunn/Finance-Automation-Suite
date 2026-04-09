@@ -21,7 +21,7 @@ This repository contains a professional-grade, high-concurrency end-to-end autom
 * **Framework**: [Playwright](https://playwright.dev/)
 * **Language**: TypeScript & C#
 * **Backend**: ASP.NET Core 10
-* **Database**: PostgreSQL 15 (via Npgsql)
+* **Database**: PostgreSQL 18 (via Npgsql)
 * **ORM**: Entity Framework Core 10
 
 ---
@@ -38,7 +38,6 @@ Validates the core financial engine, including:
 
 ### Balances
 Ensures the reliability of direct balance adjustments:
-
 * **Boundary Validation**: Verification that users can update balances to specific positive values, zero, or leave them blank (defaulting to the current value).
 * **Negative Constraints**: Strict enforcement of business rules preventing manual updates to negative values via the UI.
 
@@ -76,7 +75,7 @@ Fintech_Automation_Suite/
 │   │   ├── BasePage.ts          # Parent class for shared navigation
 │   │   ├── HomePage.ts          # Dashboard, transactions, and settings logic
 │   │   ├── LoginPage.ts         # Authentication selectors and methods
-│   │   └── SignupPage.ts         # User registration interaction
+│   │   └── SignupPage.ts        # User registration interaction
 │   ├── tests/                   # End-to-End Test Suites
 │   │   ├── allocation.test.ts   # Budget distribution & percent logic
 │   │   ├── auth.test.ts         # Login/Signup security flows
